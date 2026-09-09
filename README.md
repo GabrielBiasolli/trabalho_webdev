@@ -20,6 +20,9 @@ externas (nada de MathJax ou KaTeX).
 | --- | --- |
 | `index.html` | Estrutura semântica e todo o MathML |
 | `estilo.css` | Tipografia, layout, tema claro/escuro e estilo de impressão |
+| `ROTEIRO.md` | Roteiro cronometrado da apresentação em vídeo, com a divisão da dupla |
+| `slides.html` | Deck de 22 slides em 16:9 (HTML paginado, também com MathML nativo) |
+| `slides.pdf` | O mesmo deck exportado em PDF, para projetar durante a apresentação |
 
 ## Como visualizar
 

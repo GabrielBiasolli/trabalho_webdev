@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MathML na prática — slides da apresentação</title>
+<style>
+/* ===============================================================
+   Slides 16:9 (33.87cm × 19.05cm) — impressos em PDF via Chromium
+   =============================================================== */
+
+@page { size: 33.87cm 19.05cm; margin: 0; }
+
+:root {
+  --tinta:       #16181d;
+  --tinta-suave: #5a6070;
+  --papel:       #fbfaf7;
+  --papel-alt:   #ffffff;
+  --linha:       #e3e0d8;
+  --realce:      #7c1d2e;
+  --realce-luz:  #f4ecee;
+  --escuro:      #16181d;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans:  "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --mono:  "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #6b6f78;
+  font-family: var(--sans);
+  color: var(--tinta);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.slide {
+  position: relative;
+  width: 33.87cm;
+  height: 19.05cm;
+  padding: 2.2cm 2.6cm;
+  background: var(--papel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  break-after: page;
+  margin: 0 auto 0.6cm;
+  box-shadow: 0 6px 24px rgba(0,0,0,.35);
+}
+
+.slide:last-child { page-break-after: auto; break-after: auto; margin-bottom: 0; }
+
+/* ---------- cabeçalho e rodapé do slide ---------- */
+
+.eyebrow {
+  font-size: 12pt;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--realce);
+  margin: 0 0 .55cm;
+}
+
+.eyebrow .quem {
+  color: var(--tinta-suave);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: none;
+}
+
+.slide h2 {
+  font-family: var(--serif);
+  font-size: 34pt;
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin: 0 0 .7cm;
+}
+
+.slide h2 .fino { color: var(--tinta-suave); }
+
+.num {
+  position: absolute;
+  right: 1.5cm;
+  bottom: 1.1cm;
+  font-size: 11pt;
+  color: var(--tinta-suave);
+  font-variant-numeric: tabular-nums;
+}
+
+.pe {
+  position: absolute;
+  left: 2.6cm;
+  bottom: 1.1cm;
+  font-size: 10pt;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--linha);
+}
+
+/* ---------- conteúdo ---------- */
+
+.corpo { flex: 1; min-height: 0; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+li {
+  position: relative;
+  padding-left: 1.1cm;
+  margin-bottom: .55cm;
+  font-size: 17pt;
+  line-height: 1.45;
+}
+
+li::before {
+  content: "";
+  position: absolute;
+  left: .1cm;
+  top: .32cm;
+  width: .42cm;
+  height: 2px;
+  background: var(--realce);
+}
+
+li strong { font-weight: 700; }
+li .sub { display: block; font-size: 13.5pt; color: var(--tinta-suave); margin-top: .12cm; }
+
+p.lead {
+  font-family: var(--serif);
+  font-size: 21pt;
+  line-height: 1.5;
+  color: var(--tinta-suave);
+  margin: 0 0 .7cm;
+  max-width: 24cm;
+}
+
+code, .mono { font-family: var(--mono); font-size: .92em; }
+
+li code, p code {
+  background: var(--realce-luz);
+  color: var(--realce);
+  padding: .04cm .18cm;
+  border-radius: 3px;
+}
+
+/* ---------- capa ---------- */
+
+.capa { justify-content: center; text-align: center; background: var(--escuro); color: #f2efe9; }
+.capa h1 {
+  font-family: var(--serif);
+  font-size: 54pt;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 0 0 .5cm;
+}
+.capa .olho { color: #e8a0ac; }
+.capa .autores {
+  margin-top: 1.4cm;
+  font-size: 16pt;
+  letter-spacing: .04em;
+  color: #b9bcc4;
+}
+.capa .autores strong { color: #f2efe9; font-weight: 600; }
+.capa math { color: #f2efe9; font-size: 1.9em; margin-top: .9cm; }
+
+/* ---------- slide de virada (seção) ---------- */
+
+.virada { background: var(--realce); color: #fff; justify-content: center; }
+.virada .eyebrow { color: #f0c5cd; }
+.virada h2 { font-size: 44pt; margin-bottom: .3cm; }
+.virada p { font-size: 18pt; color: #f3dde1; margin: 0; max-width: 22cm; }
+.virada .num { color: #e0aab4; }
+.virada .pe { color: #a44a5c; }
+
+/* ---------- duas colunas ---------- */
+
+.duas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1cm;
+  height: 100%;
+  align-items: start;
+}
+
+.duas.pesada { grid-template-columns: 1.15fr 1fr; }
+.duas.centro { align-items: center; }
+.duas > * { min-width: 0; }
+.duas .painel, .duas .render { height: 100%; }
+
+.painel {
+  background: var(--papel-alt);
+  border: 1px solid var(--linha);
+  border-radius: 5px;
+  padding: .8cm .9cm;
+}
+
+.painel h3, .rot {
+  font-size: 10.5pt;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  margin: 0 0 .45cm;
+}
+
+pre {
+  font-family: var(--mono);
+  font-size: 11.5pt;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre;
+  color: var(--tinta);
+}
+
+pre .tag { color: var(--realce); }
+pre .att { color: #1f6f5c; }
+pre .val { color: #8a6d1f; }
+
+.render {
+  display: grid;
+  place-items: center;
+  background: var(--realce-luz);
+  border: 1px solid var(--linha);
+  border-radius: 5px;
+  padding: .9cm;
+}
+
+/* ---------- tabela ---------- */
+
+table { width: 100%; border-collapse: collapse; font-size: 14.5pt; }
+
+th, td { text-align: left; padding: .38cm .5cm; border-bottom: 1px solid var(--linha); vertical-align: top; }
+
+thead th {
+  font-size: 10.5pt;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  border-bottom: 2px solid var(--realce);
+}
+
+tbody th { font-weight: 600; white-space: nowrap; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+
+td.bom  { color: #1f6f4c; font-weight: 600; }
+td.ruim { color: var(--realce); font-weight: 600; }
+
+/* ---------- cartões dos passos ---------- */
+
+.passos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .55cm; }
+
+.cartao {
+  min-width: 0;
+  overflow: hidden;
+  background: var(--papel-alt);
+  border: 1px solid var(--linha);
+  border-top: 3px solid var(--realce);
+  border-radius: 5px;
+  padding: .6cm .55cm;
+}
+
+.cartao .n {
+  display: inline-grid;
+  place-items: center;
+  width: .95cm; height: .95cm;
+  border-radius: 50%;
+  background: var(--realce);
+  color: #fff;
+  font-size: 11pt; font-weight: 700;
+  margin-bottom: .35cm;
+}
+
+.cartao p { font-size: 12pt; line-height: 1.4; margin: 0 0 .3cm; color: var(--tinta-suave); }
+.cartao math { font-size: 1em; }
+.cartao math[display="block"] { font-size: 1.1em; margin: .15cm 0 0; }
+
+/* ---------- MathML ---------- */
+
+math { font-family: var(--serif); }
+math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
+.render math[display="block"] { font-size: 2.1em; margin: 0; }
+
+/* ---------- destaque de fecho ---------- */
+
+.frase {
+  font-family: var(--serif);
+  font-size: 30pt;
+  line-height: 1.35;
+  max-width: 25cm;
+}
+.frase em { color: var(--realce); font-style: italic; }
+
+@media screen {
+  body { padding: 1cm 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1 ------------------------------------------------------------------ -->
+<section class="slide capa">
+  <p class="eyebrow olho">Desenvolvimento Web · Trabalho prático</p>
+  <h1>MathML na prática</h1>
+  <p class="autores">A demonstração da fórmula de Bhaskara em HTML puro<br><br>
+    <strong>Gabriel</strong> &nbsp;·&nbsp; <strong>Pedro Henrique Barcellos</strong></p>
+  <math display="block">
+    <mi>x</mi><mo>=</mo>
+    <mfrac>
+      <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo>
+        <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow>
+      <mrow><mn>2</mn><mi>a</mi></mrow>
+    </mfrac>
+  </math>
+</section>
+
+<!-- 2 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Roteiro <span class="quem">— quem fala o quê</span></p>
+  <h2>Como dividimos a apresentação</h2>
+  <div class="corpo">
+    <table>
+      <thead>
+        <tr><th>Bloco</th><th>Assunto</th><th>Apresenta</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>1</th><td>O problema e a regra do trabalho</td><td>Gabriel</td></tr>
+        <tr><th>2</th><td>O que é MathML e por que ele existe</td><td>Pedro Henrique Barcellos</td></tr>
+        <tr><th>3</th><td>Anatomia da marcação: os elementos</td><td>Gabriel</td></tr>
+        <tr><th>4</th><td>A dedução na tela, passo a passo</td><td>Pedro Henrique Barcellos</td></tr>
+        <tr><th>5</th><td>CSS, responsividade e texto de verdade</td><td>Gabriel</td></tr>
+        <tr><th>6</th><td>Acessibilidade e suporte dos navegadores</td><td>Pedro Henrique Barcellos</td></tr>
+        <tr><th>7</th><td>Fechamento</td><td>Os dois</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">2</span>
+</section>
+
+<!-- 3 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Bloco 1 <span class="quem">— Gabriel</span></p>
+  <h2>O problema <span class="fino">— matemática numa página web</span></h2>
+  <div class="corpo">
+    <p class="lead">Precisamos exibir a dedução completa da fórmula de Bhaskara numa página.
+      Como se escreve uma fração com raiz quadrada dentro em HTML?</p>
+    <ul>
+      <li><strong>Imagem</strong> (PNG de um editor de equações)
+        <span class="sub">Borra no zoom, não é selecionável, não é pesquisável, depende de <code>alt</code> escrito à mão.</span></li>
+      <li><strong>Biblioteca JavaScript</strong> (MathJax, KaTeX)
+        <span class="sub">Funciona bem, mas é dependência externa, peso extra e não renderiza sem JS.</span></li>
+      <li><strong>MathML</strong> — markup nativo do próprio HTML
+        <span class="sub">É o caminho deste trabalho.</span></li>
+    </ul>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">3</span>
+</section>
+
+<!-- 4 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Bloco 1 <span class="quem">— Gabriel</span></p>
+  <h2>A regra que nos impusemos</h2>
+  <div class="corpo">
+    <p class="lead">A página inteira usa apenas dois arquivos — e nenhuma dependência.</p>
+    <ul>
+      <li><strong>Zero imagens.</strong> Nenhuma fórmula é figura.</li>
+      <li><strong>Zero JavaScript.</strong> Nem uma linha.</li>
+      <li><strong>Zero bibliotecas.</strong> Sem MathJax, sem KaTeX, sem CDN.</li>
+      <li><code>index.html</code> com a estrutura e todo o MathML; <code>estilo.css</code> com a apresentação.</li>
+    </ul>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">4</span>
+</section>
+
+<!-- 5 ------------------------------------------------------------------ -->
+<section class="slide virada">
+  <p class="eyebrow">Bloco 2 — Pedro Henrique Barcellos</p>
+  <h2>O que é MathML</h2>
+  <p>Um padrão do W3C para descrever notação matemática — e hoje, parte do próprio HTML.</p>
+  <span class="pe">MathML na prática</span><span class="num">5</span>
+</section>
+
+<!-- 6 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Bloco 2 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>Um elemento nativo, como <span class="fino">&lt;table&gt; ou &lt;svg&gt;</span></h2>
+  <div class="corpo">
+    <ul>
+      <li><strong>MathML</strong> = <em>Mathematical Markup Language</em>, padrão do <strong>W3C</strong> desde 1998.</li>
+      <li>Descreve a matemática como <strong>estrutura</strong>, não como desenho: o navegador é quem
+        decide a tipografia, o tamanho do radical, o espaçamento dos operadores.</li>
+      <li>Faz parte do <strong>HTML5</strong> — <code>&lt;math&gt;</code> vive no mesmo DOM que o resto da página,
+        sem plugin e sem conversão.</li>
+      <li>Duas vertentes:
+        <span class="sub"><strong>Presentation MathML</strong> — como a fórmula <em>aparece</em>. É o que os navegadores implementam e o que usamos.<br>
+        <strong>Content MathML</strong> — o que a fórmula <em>significa</em>; voltado a sistemas de computação simbólica.</span></li>
+      <li><strong>MathML Core</strong> — o subconjunto enxuto que os navegadores suportam hoje.</li>
+    </ul>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">6</span>
+</section>
+
+<!-- 7 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Bloco 2 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>Por que MathML e não as alternativas</h2>
+  <div class="corpo">
+    <table>
+      <thead>
+        <tr><th>Critério</th><th>Imagem</th><th>MathJax / KaTeX</th><th>MathML nativo</th></tr>
+      </thead>
+      <tbody>
+        <tr><th>Escala no zoom</th><td class="ruim">Borra</td><td class="bom">Sim</td><td class="bom">Sim</td></tr>
+        <tr><th>Selecionar e copiar</th><td class="ruim">Não</td><td>Parcial</td><td class="bom">Sim</td></tr>
+        <tr><th>Leitor de tela</th><td class="ruim">Só o <code>alt</code></td><td>Sim, via JS</td><td class="bom">Nativo</td></tr>
+        <tr><th>Estilizável por CSS</th><td class="ruim">Não</td><td>Parcial</td><td class="bom">Sim</td></tr>
+        <tr><th>Depende de JavaScript</th><td class="bom">Não</td><td class="ruim">Sim</td><td class="bom">Não</td></tr>
+        <tr><th>Peso extra</th><td>Um arquivo por fórmula</td><td class="ruim">Centenas de KB</td><td class="bom">Zero</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">7</span>
+</section>
+
+<!-- 8 ------------------------------------------------------------------ -->
+<section class="slide virada">
+  <p class="eyebrow">Bloco 3 — Gabriel</p>
+  <h2>Anatomia da marcação</h2>
+  <p>Os elementos que constroem qualquer fórmula — e como eles aninham.</p>
+  <span class="pe">MathML na prática</span><span class="num">8</span>
+</section>
+
+<!-- 9 ------------------------------------------------------------------ -->
+<section class="slide">
+  <p class="eyebrow">Bloco 3 <span class="quem">— Gabriel</span></p>
+  <h2>Os blocos de construção</h2>
+  <div class="corpo duas">
+    <div>
+      <ul>
+        <li><code>&lt;math&gt;</code> — o contêiner de toda fórmula.
+          <span class="sub"><code>display="block"</code> destaca e centraliza; o padrão <code>inline</code> a insere no meio do texto.</span></li>
+        <li><code>&lt;mrow&gt;</code> — agrupa: o "parêntese invisível" que mantém a expressão coesa.</li>
+        <li><code>&lt;mi&gt;</code> identificador — variável, <em>itálico automático</em>.</li>
+        <li><code>&lt;mn&gt;</code> número &nbsp;·&nbsp; <code>&lt;mo&gt;</code> operador.
+          <span class="sub">É a distinção entre eles que faz o navegador aplicar o espaçamento tipográfico correto — sozinho.</span></li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><code>&lt;mfrac&gt;</code> — fração: exatamente <strong>dois filhos</strong>, numerador e denominador.</li>
+        <li><code>&lt;msup&gt;</code> / <code>&lt;msub&gt;</code> — base + expoente, base + índice.</li>
+        <li><code>&lt;msqrt&gt;</code> — raiz, com o radical desenhado no tamanho certo do conteúdo.</li>
+        <li><code>&lt;mtext&gt;</code> texto corrido &nbsp;·&nbsp; <code>&lt;mspace&gt;</code> espaço controlado.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">9</span>
+</section>
+
+<!-- 10 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 3 <span class="quem">— Gabriel</span></p>
+  <h2>O markup e o resultado, lado a lado</h2>
+  <div class="corpo duas pesada">
+    <div class="painel">
+      <h3>index.html</h3>
+<pre><span class="tag">&lt;math</span> <span class="att">display</span>=<span class="val">"block"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;mi&gt;</span>x<span class="tag">&lt;/mi&gt;&lt;mo&gt;</span>=<span class="tag">&lt;/mo&gt;</span>
+  <span class="tag">&lt;mfrac&gt;</span>
+    <span class="tag">&lt;mrow&gt;</span>
+      <span class="tag">&lt;mo&gt;</span>&amp;#8722;<span class="tag">&lt;/mo&gt;&lt;mi&gt;</span>b<span class="tag">&lt;/mi&gt;</span>
+      <span class="tag">&lt;mo&gt;</span>&amp;#177;<span class="tag">&lt;/mo&gt;</span>
+      <span class="tag">&lt;msqrt&gt;&lt;mrow&gt;</span>
+        <span class="tag">&lt;msup&gt;&lt;mi&gt;</span>b<span class="tag">&lt;/mi&gt;&lt;mn&gt;</span>2<span class="tag">&lt;/mn&gt;&lt;/msup&gt;</span>
+        <span class="tag">&lt;mo&gt;</span>&amp;#8722;<span class="tag">&lt;/mo&gt;</span>
+        <span class="tag">&lt;mn&gt;</span>4<span class="tag">&lt;/mn&gt;&lt;mi&gt;</span>a<span class="tag">&lt;/mi&gt;&lt;mi&gt;</span>c<span class="tag">&lt;/mi&gt;</span>
+      <span class="tag">&lt;/mrow&gt;&lt;/msqrt&gt;</span>
+    <span class="tag">&lt;/mrow&gt;</span>
+    <span class="tag">&lt;mrow&gt;&lt;mn&gt;</span>2<span class="tag">&lt;/mn&gt;&lt;mi&gt;</span>a<span class="tag">&lt;/mi&gt;&lt;/mrow&gt;</span>
+  <span class="tag">&lt;/mfrac&gt;</span>
+<span class="tag">&lt;/math&gt;</span></pre>
+    </div>
+    <div class="render">
+      <math display="block">
+        <mi>x</mi><mo>=</mo>
+        <mfrac>
+          <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo>
+            <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow>
+          <mrow><mn>2</mn><mi>a</mi></mrow>
+        </mfrac>
+      </math>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">10</span>
+</section>
+
+<!-- 11 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 3 <span class="quem">— Gabriel</span></p>
+  <h2>Detalhe que faz diferença: <span class="fino">entidades</span></h2>
+  <div class="corpo">
+    <p class="lead">O sinal de menos da matemática não é o hífen do teclado. Usamos entidades
+      numéricas para garantir o caractere certo em qualquer editor e codificação.</p>
+    <table>
+      <thead><tr><th>Entidade</th><th>Símbolo</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><th><code>&amp;#8722;</code></th><td style="font-size:20pt">&#8722;</td><td>Sinal de menos matemático (mais largo que o hífen <code>-</code>)</td></tr>
+        <tr><th><code>&amp;#177;</code></th><td style="font-size:20pt">&#177;</td><td>Mais ou menos — a origem das duas raízes</td></tr>
+        <tr><th><code>&amp;#916;</code></th><td style="font-size:20pt">&#916;</td><td>Delta maiúsculo — o discriminante</td></tr>
+        <tr><th><code>&amp;#8800;</code></th><td style="font-size:20pt">&#8800;</td><td>Diferente — a condição <math><mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math></td></tr>
+        <tr><th><code>&amp;#8901;</code></th><td style="font-size:20pt">&#8901;</td><td>Ponto de multiplicação</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">11</span>
+</section>
+
+<!-- 12 ----------------------------------------------------------------- -->
+<section class="slide virada">
+  <p class="eyebrow">Bloco 4 — Pedro Henrique Barcellos</p>
+  <h2>A dedução na tela</h2>
+  <p>Sete passos de completamento de quadrados — cada um um bloco <code>&lt;math&gt;</code> independente.</p>
+  <span class="pe">MathML na prática</span><span class="num">12</span>
+</section>
+
+<!-- 13 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 4 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>Do enunciado ao quadrado perfeito</h2>
+  <div class="corpo">
+    <div class="passos">
+      <div class="cartao">
+        <span class="n">1</span>
+        <p>Forma geral, com <math><mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math></p>
+        <math display="block"><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">2</span>
+        <p>Multiplicamos por <math><mrow><mn>4</mn><mi>a</mi></mrow></math></p>
+        <math display="block"><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi><mo>+</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>=</mo><mn>0</mn></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">3</span>
+        <p>Isolamos o termo independente</p>
+        <math display="block"><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi><mo>=</mo><mo form="prefix">&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">4</span>
+        <p>Somamos <math><msup><mi>b</mi><mn>2</mn></msup></math> aos dois lados</p>
+        <math display="block"><mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">5</span>
+        <p>Fatoramos o quadrado perfeito</p>
+        <math display="block"><mrow><msup><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">6</span>
+        <p>Extraímos a raiz — daqui vem o <math><mo>&#177;</mo></math></p>
+        <math display="block"><mrow><mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo>=</mo><mo>&#177;</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow></math>
+      </div>
+      <div class="cartao">
+        <span class="n">7</span>
+        <p>Isolamos <math><mi>x</mi></math> — só é possível porque <math><mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math></p>
+        <math display="block"><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>
+      </div>
+      <div class="cartao" style="border-top-color:#1f6f4c">
+        <span class="n" style="background:#1f6f4c">&#10003;</span>
+        <p>Verificação: substituindo, o numerador vira</p>
+        <math display="block"><mrow><mi>&#916;</mi><mo>&#8722;</mo><mi>&#916;</mi><mo>=</mo><mn>0</mn></mrow></math>
+      </div>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">13</span>
+</section>
+
+<!-- 14 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 4 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>O discriminante decide tudo</h2>
+  <div class="corpo duas pesada centro">
+    <div>
+      <math display="block"><mrow><mi>&#916;</mi><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>
+      <math display="block"><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>
+      <p class="lead" style="font-size:16pt;margin-top:.6cm">Exemplo da página:
+        <math><mrow><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>7</mn><mi>x</mi><mo>+</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></math>
+        &nbsp;dá&nbsp;<math><mrow><mi>&#916;</mi><mo>=</mo><mn>25</mn></mrow></math>,
+        <math><mrow><msub><mi>x</mi><mn>1</mn></msub><mo>=</mo><mn>3</mn></mrow></math> e
+        <math><mrow><msub><mi>x</mi><mn>2</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></math>.</p>
+    </div>
+    <div>
+      <table>
+        <thead><tr><th>Condição</th><th>Raízes</th></tr></thead>
+        <tbody>
+          <tr><th><math><mrow><mi>&#916;</mi><mo>&gt;</mo><mn>0</mn></mrow></math></th><td>Duas reais e distintas — a parábola corta o eixo x</td></tr>
+          <tr><th><math><mrow><mi>&#916;</mi><mo>=</mo><mn>0</mn></mrow></math></th><td>Uma raiz dupla — a parábola tangencia o eixo</td></tr>
+          <tr><th><math><mrow><mi>&#916;</mi><mo>&lt;</mo><mn>0</mn></mrow></math></th><td>Nenhuma real; duas complexas conjugadas — não toca o eixo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">14</span>
+</section>
+
+<!-- 15 ----------------------------------------------------------------- -->
+<section class="slide virada">
+  <p class="eyebrow">Bloco 5 — Gabriel</p>
+  <h2>MathML é conteúdo, não figura</h2>
+  <p>E por ser conteúdo, o CSS alcança — e o usuário também.</p>
+  <span class="pe">MathML na prática</span><span class="num">15</span>
+</section>
+
+<!-- 16 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 5 <span class="quem">— Gabriel</span></p>
+  <h2>Estilizando fórmula com CSS comum</h2>
+  <div class="corpo duas">
+    <div class="painel">
+      <h3>estilo.css</h3>
+<pre>math {
+  font-family: var(--serif);
+  color: var(--tinta);
+}
+
+math[display="block"] {
+  font-size: 1.3em;
+  margin: 1.4rem 0;
+  overflow-x: auto;   /* telas estreitas */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --tinta: #e8e6e1; }
+}
+
+@media print {
+  .passo { break-inside: avoid; }
+}</pre>
+    </div>
+    <div>
+      <ul>
+        <li><strong>Seletor comum.</strong> <code>math { }</code> funciona como qualquer outro seletor CSS.</li>
+        <li><strong>Tema claro/escuro.</strong> A fórmula troca de cor junto com a página, via variável CSS.</li>
+        <li><strong>Responsivo.</strong> <code>overflow-x: auto</code> deixa a equação rolar em vez de estourar o layout no celular.</li>
+        <li><strong>Impressão.</strong> <code>@media print</code> evita quebrar um passo da dedução ao meio.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">16</span>
+</section>
+
+<!-- 17 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 5 <span class="quem">— Gabriel</span> · demonstração ao vivo</p>
+  <h2>Três coisas que uma imagem não faz</h2>
+  <div class="corpo">
+    <ul>
+      <li><strong>Zoom sem perda.</strong> <code>Ctrl</code> + <code>+</code> na página: a fórmula é texto vetorial, cresce nítida em qualquer tamanho.</li>
+      <li><strong>Seleção e cópia.</strong> Arraste o mouse sobre a fórmula — ela seleciona como texto e vai para a área de transferência.</li>
+      <li><strong>Busca na página.</strong> O conteúdo está no DOM, então <code>Ctrl</code> + <code>F</code> encontra.</li>
+      <li><strong>Impressão perfeita.</strong> Sem imagem serrilhada: o PDF sai com a fórmula em resolução de texto.</li>
+    </ul>
+    <p class="lead" style="margin-top:.9cm">Momento de mostrar no navegador, não no slide.</p>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">17</span>
+</section>
+
+<!-- 18 ----------------------------------------------------------------- -->
+<section class="slide virada">
+  <p class="eyebrow">Bloco 6 — Pedro Henrique Barcellos</p>
+  <h2>Acessibilidade e suporte</h2>
+  <p>O argumento mais forte a favor do MathML — e o estado real dos navegadores.</p>
+  <span class="pe">MathML na prática</span><span class="num">18</span>
+</section>
+
+<!-- 19 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 6 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>O leitor de tela lê matemática</h2>
+  <div class="corpo">
+    <p class="lead">Porque a estrutura está no markup, o leitor de tela não lê símbolos soltos:
+      ele lê a expressão como ela é falada.</p>
+    <div class="painel" style="margin-bottom:.55cm">
+      <h3>O que o NVDA / Narrador anuncia</h3>
+      <p style="font-family:var(--serif);font-size:18pt;margin:0;line-height:1.45">
+        “x igual a fração: menos b mais ou menos raiz quadrada de b ao quadrado
+        menos quatro a c, sobre dois a”</p>
+    </div>
+    <ul>
+      <li>Uma imagem entregaria, no melhor caso, um <code>alt</code> escrito à mão — e desatualizado.</li>
+      <li>MathML permite navegar <strong>dentro</strong> da fórmula: entrar no numerador, ler só o radical.</li>
+      <li>Beneficia também tradução automática, indexação por buscadores e conversão para Braille.</li>
+    </ul>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">19</span>
+</section>
+
+<!-- 20 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 6 <span class="quem">— Pedro Henrique Barcellos</span></p>
+  <h2>Suporte dos navegadores hoje</h2>
+  <div class="corpo duas pesada">
+    <div>
+      <table>
+        <thead><tr><th>Navegador</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr><th>Firefox</th><td class="bom">Nativo há anos</td></tr>
+          <tr><th>Safari</th><td class="bom">Nativo há anos</td></tr>
+          <tr><th>Chrome</th><td class="bom">Desde a versão 109 (jan/2023)</td></tr>
+          <tr><th>Edge</th><td class="bom">Desde a versão 109 (jan/2023)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <ul>
+        <li>A ausência de suporte no Chrome foi, por anos, <strong>a razão de existirem</strong> MathJax e KaTeX.</li>
+        <li>Com o MathML Core no Chromium, a cobertura hoje é praticamente universal.</li>
+        <li>Onde já se usa de verdade: <strong>material didático, artigos científicos, EPUB, provas online</strong> e documentação técnica.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">20</span>
+</section>
+
+<!-- 21 ----------------------------------------------------------------- -->
+<section class="slide">
+  <p class="eyebrow">Bloco 7 <span class="quem">— Gabriel e Pedro Henrique Barcellos</span></p>
+  <h2>Fechamento</h2>
+  <div class="corpo">
+    <p class="frase">MathML devolve a matemática à web como
+      <em>conteúdo semântico</em> — não como figura.</p>
+    <ul style="margin-top:1cm">
+      <li>Uma página, dois arquivos, nenhuma dependência.</li>
+      <li>Dedução completa, verificação, exemplo e relações de Girard — tudo em markup.</li>
+      <li>Texto de verdade: escalável, selecionável, pesquisável, acessível e imprimível.</li>
+    </ul>
+  </div>
+  <span class="pe">MathML na prática</span><span class="num">21</span>
+</section>
+
+<!-- 22 ----------------------------------------------------------------- -->
+<section class="slide capa">
+  <p class="eyebrow olho">Encerramento</p>
+  <h1>Obrigado!</h1>
+  <p class="autores">Agradecemos ao professor e aos colegas pela atenção<br>
+    ao longo desta apresentação.<br><br>
+    <strong>Gabriel</strong> &nbsp;·&nbsp; <strong>Pedro Henrique Barcellos</strong><br><br>
+    Desenvolvimento Web — demonstração da fórmula de Bhaskara em MathML</p>
+</section>
+
+</body>
+</html>
