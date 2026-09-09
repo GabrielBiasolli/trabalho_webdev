@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demonstração da Fórmula de Bhaskara — MathML</title>
+<meta name="description" content="Dedução completa da fórmula resolutiva da equação do segundo grau, escrita em HTML puro com MathML.">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="capa">
+  <p class="olho">Desenvolvimento Web · HTML + MathML</p>
+  <h1>A fórmula de Bhaskara</h1>
+  <p class="sub">Dedução passo a passo da fórmula resolutiva da equação do segundo grau, do enunciado geral até as raízes — toda a matemática marcada com <abbr title="Mathematical Markup Language">MathML</abbr> nativo, sem imagens e sem bibliotecas.</p>
+
+  <math display="block" class="destaque">
+    <mi>x</mi><mo>=</mo>
+    <mfrac>
+      <mrow>
+        <mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo>
+        <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt>
+      </mrow>
+      <mrow><mn>2</mn><mi>a</mi></mrow>
+    </mfrac>
+  </math>
+</header>
+
+<nav class="sumario" aria-label="Sumário">
+  <ol>
+    <li><a href="#problema">O problema</a></li>
+    <li><a href="#deducao">A dedução</a></li>
+    <li><a href="#discriminante">O discriminante</a></li>
+    <li><a href="#verificacao">Verificação</a></li>
+    <li><a href="#exemplo">Exemplo resolvido</a></li>
+    <li><a href="#relacoes">Relações de Girard</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="problema">
+  <h2>1. O problema</h2>
+  <p>Uma <strong>equação do segundo grau</strong> na incógnita <math><mi>x</mi></math> é toda equação que pode ser escrita na forma</p>
+
+  <math display="block">
+    <mrow>
+      <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
+      <mo>+</mo><mi>b</mi><mi>x</mi>
+      <mo>+</mo><mi>c</mi>
+      <mo>=</mo><mn>0</mn>
+    </mrow>
+  </math>
+
+  <p>com <math><mi>a</mi></math>, <math><mi>b</mi></math> e <math><mi>c</mi></math> reais e a condição essencial</p>
+
+  <math display="block">
+    <mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow>
+  </math>
+
+  <p class="nota">Se <math><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow></math>, o termo quadrático desaparece e a equação degenera em <math><mrow><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></math>, que é do primeiro grau. Toda a dedução a seguir multiplica ou divide por <math><mi>a</mi></math>, e é essa hipótese que autoriza cada uma dessas passagens.</p>
+
+  <p>O objetivo é isolar <math><mi>x</mi></math>: obter uma expressão que devolva as raízes a partir apenas dos coeficientes <math><mi>a</mi></math>, <math><mi>b</mi></math> e <math><mi>c</mi></math>. A estratégia é o <strong>completamento de quadrados</strong> — transformar o lado esquerdo em um quadrado perfeito, porque de um quadrado sabemos extrair raiz.</p>
+</section>
+
+<section id="deducao">
+  <h2>2. A dedução</h2>
+
+  <article class="passo">
+    <h3><span class="n">1</span> Partimos da forma geral</h3>
+    <math display="block">
+      <mrow>
+        <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup>
+        <mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi>
+        <mo>=</mo><mn>0</mn>
+      </mrow>
+    </math>
+    <p class="just">Ponto de partida, com <math><mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math>.</p>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">2</span> Multiplicamos ambos os membros por <math><mrow><mn>4</mn><mi>a</mi></mrow></math></h3>
+    <math display="block">
+      <mrow>
+        <mn>4</mn><mi>a</mi>
+        <mo stretchy="false">(</mo>
+        <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mn>4</mn><mi>a</mi><mo>&#8901;</mo><mn>0</mn>
+      </mrow>
+    </math>
+    <math display="block">
+      <mrow>
+        <mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup>
+        <mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi>
+        <mo>+</mo><mn>4</mn><mi>a</mi><mi>c</mi>
+        <mo>=</mo><mn>0</mn>
+      </mrow>
+    </math>
+    <p class="just">Como <math><mrow><mn>4</mn><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math>, a multiplicação preserva a igualdade e não introduz nem elimina raízes. Esse fator é escolhido para que o coeficiente de <math><msup><mi>x</mi><mn>2</mn></msup></math> vire o quadrado perfeito <math><msup><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></math>, evitando frações no meio do caminho.</p>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">3</span> Isolamos o termo independente</h3>
+    <math display="block">
+      <mrow>
+        <mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup>
+        <mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi>
+        <mo>=</mo>
+        <mo form="prefix">&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi>
+      </mrow>
+    </math>
+    <p class="just">Subtraímos <math><mrow><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math> dos dois membros.</p>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">4</span> Completamos o quadrado somando <math><msup><mi>b</mi><mn>2</mn></msup></math></h3>
+    <math display="block">
+      <mrow>
+        <mn>4</mn><msup><mi>a</mi><mn>2</mn></msup><msup><mi>x</mi><mn>2</mn></msup>
+        <mo>+</mo><mn>4</mn><mi>a</mi><mi>b</mi><mi>x</mi>
+        <mo>+</mo><msup><mi>b</mi><mn>2</mn></msup>
+        <mo>=</mo>
+        <msup><mi>b</mi><mn>2</mn></msup>
+        <mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi>
+      </mrow>
+    </math>
+    <p class="just">Somamos <math><msup><mi>b</mi><mn>2</mn></msup></math> aos dois lados. O lado esquerdo agora é exatamente o desenvolvimento de um quadrado da soma, <math><mrow><msup><mi>u</mi><mn>2</mn></msup><mo>+</mo><mn>2</mn><mi>u</mi><mi>v</mi><mo>+</mo><msup><mi>v</mi><mn>2</mn></msup></mrow></math>, com <math><mrow><mi>u</mi><mo>=</mo><mn>2</mn><mi>a</mi><mi>x</mi></mrow></math> e <math><mrow><mi>v</mi><mo>=</mo><mi>b</mi></mrow></math>:</p>
+    <math display="block">
+      <mrow>
+        <msup><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+        <mo>+</mo>
+        <mn>2</mn><mo>&#8901;</mo><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo stretchy="false">)</mo><mo>&#8901;</mo><mi>b</mi>
+        <mo>+</mo>
+        <msup><mi>b</mi><mn>2</mn></msup>
+      </mrow>
+    </math>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">5</span> Fatoramos o quadrado perfeito</h3>
+    <math display="block">
+      <mrow>
+        <msup>
+          <mrow><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow>
+          <mn>2</mn>
+        </msup>
+        <mo>=</mo>
+        <msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi>
+      </mrow>
+    </math>
+    <p class="just">Este é o coração da demonstração: a equação original, que misturava <math><msup><mi>x</mi><mn>2</mn></msup></math> e <math><mi>x</mi></math>, virou uma igualdade entre um único quadrado e uma constante.</p>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">6</span> Extraímos a raiz quadrada</h3>
+    <math display="block">
+      <mrow>
+        <mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi>
+        <mo>=</mo>
+        <mo>&#177;</mo>
+        <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt>
+      </mrow>
+    </math>
+    <p class="just">O sinal <math><mo>&#177;</mo></math> é obrigatório: de <math><mrow><msup><mi>t</mi><mn>2</mn></msup><mo>=</mo><mi>k</mi></mrow></math> segue <math><mrow><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mo>=</mo><msqrt><mi>k</mi></msqrt></mrow></math>, ou seja, duas possibilidades. É daqui que nascem as <em>duas</em> raízes. A passagem exige <math><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi><mo>&#8805;</mo><mn>0</mn></mrow></math> para que a raiz seja real.</p>
+  </article>
+
+  <article class="passo">
+    <h3><span class="n">7</span> Isolamos <math><mi>x</mi></math></h3>
+    <math display="block">
+      <mrow>
+        <mn>2</mn><mi>a</mi><mi>x</mi>
+        <mo>=</mo>
+        <mo form="prefix">&#8722;</mo><mi>b</mi>
+        <mo>&#177;</mo>
+        <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt>
+      </mrow>
+    </math>
+    <math display="block">
+      <mrow>
+        <mi>x</mi><mo>=</mo>
+        <mfrac>
+          <mrow>
+            <mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo>
+            <msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt>
+          </mrow>
+          <mrow><mn>2</mn><mi>a</mi></mrow>
+        </mfrac>
+      </mrow>
+    </math>
+    <p class="just">A divisão por <math><mrow><mn>2</mn><mi>a</mi></mrow></math> é legítima precisamente porque <math><mrow><mi>a</mi><mo>&#8800;</mo><mn>0</mn></mrow></math>. <strong>Q.E.D.</strong></p>
+  </article>
+
+  <p class="conclusao">Escrevendo as duas raízes separadamente:</p>
+  <math display="block">
+    <mrow>
+      <msub><mi>x</mi><mn>1</mn></msub><mo>=</mo>
+      <mfrac>
+        <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>+</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+      <mspace width="2em"/>
+      <mtext>e</mtext>
+      <mspace width="2em"/>
+      <msub><mi>x</mi><mn>2</mn></msub><mo>=</mo>
+      <mfrac>
+        <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#8722;</mo><msqrt><mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></msqrt></mrow>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+    </mrow>
+  </math>
+</section>
+
+<section id="discriminante">
+  <h2>3. O discriminante</h2>
+  <p>A expressão sob o radical recebe nome próprio, <strong>discriminante</strong>, e símbolo <math><mi>&#916;</mi></math>:</p>
+
+  <math display="block">
+    <mrow>
+      <mi>&#916;</mi><mo>=</mo>
+      <msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi>
+    </mrow>
+  </math>
+
+  <p>Com essa notação a fórmula fica compacta:</p>
+
+  <math display="block">
+    <mrow>
+      <mi>x</mi><mo>=</mo>
+      <mfrac>
+        <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt></mrow>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+    </mrow>
+  </math>
+
+  <p>É o sinal de <math><mi>&#916;</mi></math> — e só ele — que determina a natureza das raízes:</p>
+
+  <table>
+    <caption>Natureza das raízes segundo o discriminante</caption>
+    <thead>
+      <tr><th scope="col">Condição</th><th scope="col">Raízes</th><th scope="col">Interpretação gráfica</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><math><mrow><mi>&#916;</mi><mo>&gt;</mo><mn>0</mn></mrow></math></th>
+        <td>Duas raízes reais e distintas</td>
+        <td>A parábola corta o eixo <math><mi>x</mi></math> em dois pontos</td>
+      </tr>
+      <tr>
+        <th scope="row"><math><mrow><mi>&#916;</mi><mo>=</mo><mn>0</mn></mrow></math></th>
+        <td>Uma raiz real dupla, <math><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">&#8722;</mo><mi>b</mi></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math></td>
+        <td>A parábola tangencia o eixo <math><mi>x</mi></math></td>
+      </tr>
+      <tr>
+        <th scope="row"><math><mrow><mi>&#916;</mi><mo>&lt;</mo><mn>0</mn></mrow></math></th>
+        <td>Nenhuma raiz real; duas raízes complexas conjugadas</td>
+        <td>A parábola não toca o eixo <math><mi>x</mi></math></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>No caso <math><mrow><mi>&#916;</mi><mo>&lt;</mo><mn>0</mn></mrow></math>, escrevendo <math><mrow><msqrt><mi>&#916;</mi></msqrt><mo>=</mo><mi>i</mi><msqrt><mrow><mo form="prefix">&#8722;</mo><mi>&#916;</mi></mrow></msqrt></mrow></math> com <math><mrow><msup><mi>i</mi><mn>2</mn></msup><mo>=</mo><mo form="prefix">&#8722;</mo><mn>1</mn></mrow></math>, as raízes são</p>
+
+  <math display="block">
+    <mrow>
+      <mi>x</mi><mo>=</mo>
+      <mfrac><mrow><mo form="prefix">&#8722;</mo><mi>b</mi></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac>
+      <mo>&#177;</mo>
+      <mi>i</mi>
+      <mfrac>
+        <msqrt><mrow><mo form="prefix">&#8722;</mo><mi>&#916;</mi></mrow></msqrt>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+    </mrow>
+  </math>
+</section>
+
+<section id="verificacao">
+  <h2>4. Verificação da fórmula</h2>
+  <p>Deduzir não basta: convém confirmar que o valor obtido de fato anula a equação. Dividindo a igualdade do passo 5 por <math><mrow><mn>4</mn><mi>a</mi></mrow></math>, a equação original equivale à <strong>forma canônica</strong></p>
+
+  <math display="block">
+    <mrow>
+      <mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <msup><mrow><mo stretchy="false">(</mo><mn>2</mn><mi>a</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+          <mo>&#8722;</mo><mi>&#916;</mi>
+        </mrow>
+        <mrow><mn>4</mn><mi>a</mi></mrow>
+      </mfrac>
+    </mrow>
+  </math>
+
+  <p>Substituindo <math><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>, o parêntese vale</p>
+
+  <math display="block">
+    <mrow>
+      <mn>2</mn><mi>a</mi><mo>&#8901;</mo>
+      <mfrac>
+        <mrow><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt></mrow>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+      <mo>+</mo><mi>b</mi>
+      <mo>=</mo>
+      <mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt>
+    </mrow>
+  </math>
+
+  <p>e portanto o numerador se anula:</p>
+
+  <math display="block">
+    <mrow>
+      <msup><mrow><mo stretchy="false">(</mo><mo>&#177;</mo><msqrt><mi>&#916;</mi></msqrt><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+      <mo>&#8722;</mo><mi>&#916;</mi>
+      <mo>=</mo>
+      <mi>&#916;</mi><mo>&#8722;</mo><mi>&#916;</mi>
+      <mo>=</mo><mn>0</mn>
+    </mrow>
+  </math>
+
+  <p class="just">Logo <math><mrow><mi>a</mi><msup><mi>x</mi><mn>2</mn></msup><mo>+</mo><mi>b</mi><mi>x</mi><mo>+</mo><mi>c</mi><mo>=</mo><mn>0</mn></mrow></math> para ambos os sinais — a fórmula está verificada. E como um polinômio de grau 2 tem no máximo duas raízes, essas são <em>todas</em> as raízes.</p>
+</section>
+
+<section id="exemplo">
+  <h2>5. Exemplo resolvido</h2>
+  <p>Resolver <math><mrow><mn>2</mn><msup><mi>x</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>7</mn><mi>x</mi><mo>+</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></math>.</p>
+
+  <p><strong>Coeficientes:</strong> <math><mrow><mi>a</mi><mo>=</mo><mn>2</mn></mrow></math>, <math><mrow><mi>b</mi><mo>=</mo><mo form="prefix">&#8722;</mo><mn>7</mn></mrow></math>, <math><mrow><mi>c</mi><mo>=</mo><mn>3</mn></mrow></math>.</p>
+
+  <math display="block">
+    <mrow>
+      <mi>&#916;</mi><mo>=</mo>
+      <msup><mrow><mo stretchy="false">(</mo><mo form="prefix">&#8722;</mo><mn>7</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+      <mo>&#8722;</mo><mn>4</mn><mo>&#8901;</mo><mn>2</mn><mo>&#8901;</mo><mn>3</mn>
+      <mo>=</mo><mn>49</mn><mo>&#8722;</mo><mn>24</mn>
+      <mo>=</mo><mn>25</mn>
+    </mrow>
+  </math>
+
+  <math display="block">
+    <mrow>
+      <mi>x</mi><mo>=</mo>
+      <mfrac>
+        <mrow><mn>7</mn><mo>&#177;</mo><msqrt><mn>25</mn></msqrt></mrow>
+        <mrow><mn>2</mn><mo>&#8901;</mo><mn>2</mn></mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac><mrow><mn>7</mn><mo>&#177;</mo><mn>5</mn></mrow><mn>4</mn></mfrac>
+    </mrow>
+  </math>
+
+  <math display="block">
+    <mrow>
+      <msub><mi>x</mi><mn>1</mn></msub><mo>=</mo>
+      <mfrac><mn>12</mn><mn>4</mn></mfrac><mo>=</mo><mn>3</mn>
+      <mspace width="2em"/>
+      <msub><mi>x</mi><mn>2</mn></msub><mo>=</mo>
+      <mfrac><mn>2</mn><mn>4</mn></mfrac><mo>=</mo>
+      <mfrac><mn>1</mn><mn>2</mn></mfrac>
+    </mrow>
+  </math>
+
+  <p class="just">Conferindo com <math><mrow><mi>x</mi><mo>=</mo><mn>3</mn></mrow></math>: <math><mrow><mn>2</mn><mo>&#8901;</mo><mn>9</mn><mo>&#8722;</mo><mn>7</mn><mo>&#8901;</mo><mn>3</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>18</mn><mo>&#8722;</mo><mn>21</mn><mo>+</mo><mn>3</mn><mo>=</mo><mn>0</mn></mrow></math>. Como <math><mrow><mi>&#916;</mi><mo>&gt;</mo><mn>0</mn></mrow></math>, havia mesmo duas raízes reais distintas.</p>
+</section>
+
+<section id="relacoes">
+  <h2>6. Consequência: as relações de Girard</h2>
+  <p>Somando e multiplicando as duas raízes obtidas, os radicais se cancelam:</p>
+
+  <math display="block">
+    <mrow>
+      <msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub>
+      <mo>=</mo>
+      <mfrac>
+        <mrow>
+          <mo stretchy="false">(</mo><mo form="prefix">&#8722;</mo><mi>b</mi><mo>+</mo><msqrt><mi>&#916;</mi></msqrt><mo stretchy="false">)</mo>
+          <mo>+</mo>
+          <mo stretchy="false">(</mo><mo form="prefix">&#8722;</mo><mi>b</mi><mo>&#8722;</mo><msqrt><mi>&#916;</mi></msqrt><mo stretchy="false">)</mo>
+        </mrow>
+        <mrow><mn>2</mn><mi>a</mi></mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mo form="prefix">&#8722;</mo><mfrac><mi>b</mi><mi>a</mi></mfrac>
+    </mrow>
+  </math>
+
+  <math display="block">
+    <mrow>
+      <msub><mi>x</mi><mn>1</mn></msub><mo>&#8901;</mo><msub><mi>x</mi><mn>2</mn></msub>
+      <mo>=</mo>
+      <mfrac>
+        <mrow><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mi>&#916;</mi></mrow>
+        <mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac>
+        <mrow><mn>4</mn><mi>a</mi><mi>c</mi></mrow>
+        <mrow><mn>4</mn><msup><mi>a</mi><mn>2</mn></msup></mrow>
+      </mfrac>
+      <mo>=</mo>
+      <mfrac><mi>c</mi><mi>a</mi></mfrac>
+    </mrow>
+  </math>
+
+  <p class="just">O produto usa a diferença de quadrados <math><mrow><mo stretchy="false">(</mo><mi>m</mi><mo>+</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mi>m</mi><mo>&#8722;</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>m</mi><mn>2</mn></msup><mo>&#8722;</mo><msup><mi>n</mi><mn>2</mn></msup></mrow></math> e a definição <math><mrow><mi>&#916;</mi><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>.</p>
+
+  <p>Daí a forma equivalente <math><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>&#8722;</mo><mi>S</mi><mi>x</mi><mo>+</mo><mi>P</mi><mo>=</mo><mn>0</mn></mrow></math>, com <math><mi>S</mi></math> a soma e <math><mi>P</mi></math> o produto das raízes.</p>
+</section>
+
+</main>
+
+<footer>
+  <p>Trabalho da disciplina de Desenvolvimento Web. Página escrita em HTML5 puro; toda a notação matemática usa <strong>MathML</strong> nativo do navegador, sem JavaScript, imagens ou bibliotecas externas.</p>
+</footer>
+
+</body>
+</html>

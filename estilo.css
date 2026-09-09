@@ -1,0 +1,297 @@
+/* ---------------------------------------------------------------
+   Demonstração da fórmula de Bhaskara — folha de estilo
+   HTML puro + MathML nativo, sem dependências externas.
+   --------------------------------------------------------------- */
+
+:root {
+  --tinta:        #16181d;
+  --tinta-suave:  #4a5160;
+  --papel:        #fbfaf7;
+  --papel-alt:    #ffffff;
+  --linha:        #e3e0d8;
+  --realce:       #7c1d2e;
+  --realce-fraco: #f3ebec;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tinta:        #e8e6e1;
+    --tinta-suave:  #a3a8b4;
+    --papel:        #14161a;
+    --papel-alt:    #1c1f25;
+    --linha:        #2d313a;
+    --realce:       #e8a0ac;
+    --realce-fraco: #26191d;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  padding: 0 1.25rem 5rem;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---------- Capa ---------- */
+
+.capa {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 4.5rem 0 2.5rem;
+  border-bottom: 1px solid var(--linha);
+  text-align: center;
+}
+
+.olho {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--realce);
+  margin: 0 0 1rem;
+}
+
+.capa h1 {
+  font-size: clamp(2.25rem, 6vw, 3.4rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.sub {
+  max-width: 34rem;
+  margin: 0 auto;
+  color: var(--tinta-suave);
+  font-size: 1.05rem;
+}
+
+.capa abbr { text-decoration: none; border-bottom: 1px dotted currentColor; }
+
+math.destaque {
+  margin-top: 2.75rem;
+  font-size: 1.5em;
+}
+
+/* ---------- Sumário ---------- */
+
+.sumario {
+  max-width: 46rem;
+  margin: 2.5rem auto 0;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+}
+
+.sumario ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  counter-reset: item;
+}
+
+.sumario li { counter-increment: item; }
+
+.sumario a {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: var(--papel-alt);
+  color: var(--tinta-suave);
+  text-decoration: none;
+  transition: border-color .15s, color .15s;
+}
+
+.sumario a::before {
+  content: counter(item) ". ";
+  color: var(--realce);
+}
+
+.sumario a:hover,
+.sumario a:focus-visible {
+  border-color: var(--realce);
+  color: var(--tinta);
+}
+
+/* ---------- Corpo ---------- */
+
+main {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+section {
+  padding-top: 3.5rem;
+  scroll-margin-top: 1.5rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--realce);
+  display: inline-block;
+}
+
+h3 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+h3 .n {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--realce);
+  color: var(--papel);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-color-scheme: dark) {
+  h3 .n { color: #14161a; }
+}
+
+p { margin: 0 0 1.1rem; }
+
+/* ---------- Passos da dedução ---------- */
+
+.passo {
+  background: var(--papel-alt);
+  border: 1px solid var(--linha);
+  border-left: 3px solid var(--realce);
+  border-radius: 6px;
+  padding: 1.4rem 1.5rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.just,
+.nota {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--tinta-suave);
+  margin-bottom: 0.4rem;
+}
+
+.nota {
+  background: var(--realce-fraco);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.conclusao {
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* ---------- MathML ---------- */
+
+math {
+  font-family: var(--serif);
+  color: var(--tinta);
+}
+
+math[display="block"] {
+  font-size: 1.3em;
+  margin: 1.4rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+}
+
+/* Fallback para navegadores sem suporte pleno a MathML */
+@supports not (display: math) {
+  math[display="block"] { display: block; text-align: center; }
+}
+
+/* ---------- Tabela ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  display: block;
+  overflow-x: auto;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  padding-bottom: 0.6rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--linha);
+  vertical-align: top;
+}
+
+thead th {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+  border-bottom: 2px solid var(--linha);
+}
+
+tbody th[scope="row"] { white-space: nowrap; }
+
+tbody tr:last-child th,
+tbody tr:last-child td { border-bottom: none; }
+
+/* ---------- Rodapé ---------- */
+
+footer {
+  max-width: 46rem;
+  margin: 5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--linha);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* ---------- Impressão ---------- */
+
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .sumario { display: none; }
+  .passo { break-inside: avoid; border-color: #ccc; }
+  section { padding-top: 1.5rem; }
+}
