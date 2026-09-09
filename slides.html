@@ -12,14 +12,14 @@
 @page { size: 33.87cm 19.05cm; margin: 0; }
 
 :root {
-  --tinta:       #16181d;
-  --tinta-suave: #5a6070;
-  --papel:       #fbfaf7;
+  --tinta:       #0b1220;
+  --tinta-suave: #55617a;
+  --papel:       #f7f9fc;
   --papel-alt:   #ffffff;
-  --linha:       #e3e0d8;
-  --realce:      #7c1d2e;
-  --realce-luz:  #f4ecee;
-  --escuro:      #16181d;
+  --linha:       #d8e0ec;
+  --realce:      #0b4da2;
+  --realce-luz:  #e8f0fb;
+  --escuro:      #05080f;
 
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --sans:  "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
@@ -158,24 +158,24 @@ li code, p code {
   letter-spacing: -.02em;
   margin: 0 0 .5cm;
 }
-.capa .olho { color: #e8a0ac; }
+.capa .olho { color: #6fb2f5; }
 .capa .autores {
   margin-top: 1.4cm;
   font-size: 16pt;
   letter-spacing: .04em;
   color: #b9bcc4;
 }
-.capa .autores strong { color: #f2efe9; font-weight: 600; }
-.capa math { color: #f2efe9; font-size: 1.9em; margin-top: .9cm; }
+.capa .autores strong { color: #ffffff; font-weight: 600; }
+.capa math { color: #f2efe9; font-size: 2.6em; margin-top: 1cm; }
 
 /* ---------- slide de virada (seção) ---------- */
 
 .virada { background: var(--realce); color: #fff; justify-content: center; }
-.virada .eyebrow { color: #f0c5cd; }
+.virada .eyebrow { color: #a9cdf7; }
 .virada h2 { font-size: 44pt; margin-bottom: .3cm; }
-.virada p { font-size: 18pt; color: #f3dde1; margin: 0; max-width: 22cm; }
-.virada .num { color: #e0aab4; }
-.virada .pe { color: #a44a5c; }
+.virada p { font-size: 18pt; color: #d7e7fb; margin: 0; max-width: 22cm; }
+.virada .num { color: #8db9e8; }
+.virada .pe { color: #2f6cb5; }
 
 /* ---------- duas colunas ---------- */
 
@@ -248,7 +248,7 @@ tbody th { font-weight: 600; white-space: nowrap; }
 tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
 
 td.bom  { color: #1f6f4c; font-weight: 600; }
-td.ruim { color: var(--realce); font-weight: 600; }
+td.ruim { color: #c0392b; font-weight: 600; }
 
 /* ---------- cartões dos passos ---------- */
 
@@ -284,6 +284,7 @@ td.ruim { color: var(--realce); font-weight: 600; }
 math { font-family: var(--serif); }
 math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
 .render math[display="block"] { font-size: 2.1em; margin: 0; }
+.capa math[display="block"] { font-size: 2.6em; margin-top: 1cm; }
 
 /* ---------- destaque de fecho ---------- */
 
@@ -295,6 +296,33 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
 }
 .frase em { color: var(--realce); font-style: italic; }
 
+/* ---------- faixa tricolor do Grêmio ---------- */
+.slide::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: .55cm;
+  background: linear-gradient(180deg,
+    #0b4da2 0 33.33%, #ffffff 33.33% 66.66%, #05080f 66.66% 100%);
+}
+
+.placar {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: .5cm;
+  margin-top: 1cm;
+  padding: .35cm .9cm;
+  border: 1px solid #24406b;
+  border-radius: 4px;
+  font-size: 13pt;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #a9cdf7;
+}
+.placar strong { color: #fff; font-size: 15pt; }
+.placar { margin-top: .8cm; }
+
 @media screen {
   body { padding: 1cm 0; }
 }
@@ -304,9 +332,11 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
 
 <!-- 1 ------------------------------------------------------------------ -->
 <section class="slide capa">
-  <p class="eyebrow olho">Desenvolvimento Web · Trabalho prático</p>
+  <p class="eyebrow olho">Desenvolvimento Web · Copa do Brasil</p>
   <h1>MathML na prática</h1>
-  <p class="autores">A demonstração da fórmula de Bhaskara em HTML puro<br><br>
+  <p class="autores">A demonstração da fórmula de Bhaskara em HTML puro<br>
+    <em>edição especial: a eliminação do Sport Club Internacional pelo<br>
+    Grêmio Foot-Ball Porto Alegrense na Copa do Brasil</em><br><br>
     <strong>Gabriel</strong> &nbsp;·&nbsp; <strong>Pedro Henrique Barcellos</strong></p>
   <math display="block">
     <mi>x</mi><mo>=</mo>
@@ -316,16 +346,17 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       <mrow><mn>2</mn><mi>a</mi></mrow>
     </mfrac>
   </math>
+  <p class="placar">Grêmio <strong>classificado</strong> · Internacional <strong>eliminado</strong></p>
 </section>
 
 <!-- 2 ------------------------------------------------------------------ -->
 <section class="slide">
-  <p class="eyebrow">Roteiro <span class="quem">— quem fala o quê</span></p>
-  <h2>Como dividimos a apresentação</h2>
+  <p class="eyebrow">Escalação <span class="quem">— quem entra em campo</span></p>
+  <h2>A escalação <span class="fino">— como dividimos o jogo</span></h2>
   <div class="corpo">
     <table>
       <thead>
-        <tr><th>Bloco</th><th>Assunto</th><th>Apresenta</th></tr>
+        <tr><th>Tempo</th><th>Assunto</th><th>Em campo</th></tr>
       </thead>
       <tbody>
         <tr><th>1</th><td>O problema e a regra do trabalho</td><td>Gabriel</td></tr>
@@ -338,13 +369,13 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </tbody>
     </table>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">2</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">2</span>
 </section>
 
 <!-- 3 ------------------------------------------------------------------ -->
 <section class="slide">
   <p class="eyebrow">Bloco 1 <span class="quem">— Gabriel</span></p>
-  <h2>O problema <span class="fino">— matemática numa página web</span></h2>
+  <h2>O adversário <span class="fino">— matemática numa página web</span></h2>
   <div class="corpo">
     <p class="lead">Precisamos exibir a dedução completa da fórmula de Bhaskara numa página.
       Como se escreve uma fração com raiz quadrada dentro em HTML?</p>
@@ -357,13 +388,13 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
         <span class="sub">É o caminho deste trabalho.</span></li>
     </ul>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">3</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">3</span>
 </section>
 
 <!-- 4 ------------------------------------------------------------------ -->
 <section class="slide">
   <p class="eyebrow">Bloco 1 <span class="quem">— Gabriel</span></p>
-  <h2>A regra que nos impusemos</h2>
+  <h2>A regra do jogo <span class="fino">— o que combinamos</span></h2>
   <div class="corpo">
     <p class="lead">A página inteira usa apenas dois arquivos — e nenhuma dependência.</p>
     <ul>
@@ -373,7 +404,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       <li><code>index.html</code> com a estrutura e todo o MathML; <code>estilo.css</code> com a apresentação.</li>
     </ul>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">4</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">4</span>
 </section>
 
 <!-- 5 ------------------------------------------------------------------ -->
@@ -381,7 +412,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
   <p class="eyebrow">Bloco 2 — Pedro Henrique Barcellos</p>
   <h2>O que é MathML</h2>
   <p>Um padrão do W3C para descrever notação matemática — e hoje, parte do próprio HTML.</p>
-  <span class="pe">MathML na prática</span><span class="num">5</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">5</span>
 </section>
 
 <!-- 6 ------------------------------------------------------------------ -->
@@ -401,13 +432,13 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       <li><strong>MathML Core</strong> — o subconjunto enxuto que os navegadores suportam hoje.</li>
     </ul>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">6</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">6</span>
 </section>
 
 <!-- 7 ------------------------------------------------------------------ -->
 <section class="slide">
   <p class="eyebrow">Bloco 2 <span class="quem">— Pedro Henrique Barcellos</span></p>
-  <h2>Por que MathML e não as alternativas</h2>
+  <h2>Confronto direto <span class="fino">— MathML contra as alternativas</span></h2>
   <div class="corpo">
     <table>
       <thead>
@@ -422,8 +453,10 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
         <tr><th>Peso extra</th><td>Um arquivo por fórmula</td><td class="ruim">Centenas de KB</td><td class="bom">Zero</td></tr>
       </tbody>
     </table>
+    <p class="lead" style="font-size:14.5pt;margin:.35cm 0 0">
+      Seis critérios, seis vitórias — <strong>MathML elimina a concorrência</strong>.</p>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">7</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">7</span>
 </section>
 
 <!-- 8 ------------------------------------------------------------------ -->
@@ -431,7 +464,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
   <p class="eyebrow">Bloco 3 — Gabriel</p>
   <h2>Anatomia da marcação</h2>
   <p>Os elementos que constroem qualquer fórmula — e como eles aninham.</p>
-  <span class="pe">MathML na prática</span><span class="num">8</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">8</span>
 </section>
 
 <!-- 9 ------------------------------------------------------------------ -->
@@ -458,7 +491,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </ul>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">9</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">9</span>
 </section>
 
 <!-- 10 ----------------------------------------------------------------- -->
@@ -495,7 +528,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </math>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">10</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">10</span>
 </section>
 
 <!-- 11 ----------------------------------------------------------------- -->
@@ -516,7 +549,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </tbody>
     </table>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">11</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">11</span>
 </section>
 
 <!-- 12 ----------------------------------------------------------------- -->
@@ -524,13 +557,13 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
   <p class="eyebrow">Bloco 4 — Pedro Henrique Barcellos</p>
   <h2>A dedução na tela</h2>
   <p>Sete passos de completamento de quadrados — cada um um bloco <code>&lt;math&gt;</code> independente.</p>
-  <span class="pe">MathML na prática</span><span class="num">12</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">12</span>
 </section>
 
 <!-- 13 ----------------------------------------------------------------- -->
 <section class="slide">
   <p class="eyebrow">Bloco 4 <span class="quem">— Pedro Henrique Barcellos</span></p>
-  <h2>Do enunciado ao quadrado perfeito</h2>
+  <h2>Sete a zero <span class="fino">— do enunciado ao quadrado perfeito</span></h2>
   <div class="corpo">
     <div class="passos">
       <div class="cartao">
@@ -575,13 +608,13 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </div>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">13</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">13</span>
 </section>
 
 <!-- 14 ----------------------------------------------------------------- -->
 <section class="slide">
   <p class="eyebrow">Bloco 4 <span class="quem">— Pedro Henrique Barcellos</span></p>
-  <h2>O discriminante decide tudo</h2>
+  <h2>O discriminante decide o jogo</h2>
   <div class="corpo duas pesada centro">
     <div>
       <math display="block"><mrow><mi>&#916;</mi><mo>=</mo><msup><mi>b</mi><mn>2</mn></msup><mo>&#8722;</mo><mn>4</mn><mi>a</mi><mi>c</mi></mrow></math>
@@ -603,7 +636,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
       </table>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">14</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">14</span>
 </section>
 
 <!-- 15 ----------------------------------------------------------------- -->
@@ -611,7 +644,7 @@ math[display="block"] { font-size: 1.55em; margin: .3cm 0; }
   <p class="eyebrow">Bloco 5 — Gabriel</p>
   <h2>MathML é conteúdo, não figura</h2>
   <p>E por ser conteúdo, o CSS alcança — e o usuário também.</p>
-  <span class="pe">MathML na prática</span><span class="num">15</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">15</span>
 </section>
 
 <!-- 16 ----------------------------------------------------------------- -->
@@ -649,13 +682,13 @@ math[display="block"] {
       </ul>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">16</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">16</span>
 </section>
 
 <!-- 17 ----------------------------------------------------------------- -->
 <section class="slide">
   <p class="eyebrow">Bloco 5 <span class="quem">— Gabriel</span> · demonstração ao vivo</p>
-  <h2>Três coisas que uma imagem não faz</h2>
+  <h2>Três coisas que o adversário não faz</h2>
   <div class="corpo">
     <ul>
       <li><strong>Zoom sem perda.</strong> <code>Ctrl</code> + <code>+</code> na página: a fórmula é texto vetorial, cresce nítida em qualquer tamanho.</li>
@@ -665,7 +698,7 @@ math[display="block"] {
     </ul>
     <p class="lead" style="margin-top:.9cm">Momento de mostrar no navegador, não no slide.</p>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">17</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">17</span>
 </section>
 
 <!-- 18 ----------------------------------------------------------------- -->
@@ -673,7 +706,7 @@ math[display="block"] {
   <p class="eyebrow">Bloco 6 — Pedro Henrique Barcellos</p>
   <h2>Acessibilidade e suporte</h2>
   <p>O argumento mais forte a favor do MathML — e o estado real dos navegadores.</p>
-  <span class="pe">MathML na prática</span><span class="num">18</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">18</span>
 </section>
 
 <!-- 19 ----------------------------------------------------------------- -->
@@ -695,7 +728,7 @@ math[display="block"] {
       <li>Beneficia também tradução automática, indexação por buscadores e conversão para Braille.</li>
     </ul>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">19</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">19</span>
 </section>
 
 <!-- 20 ----------------------------------------------------------------- -->
@@ -722,23 +755,25 @@ math[display="block"] {
       </ul>
     </div>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">20</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">20</span>
 </section>
 
 <!-- 21 ----------------------------------------------------------------- -->
 <section class="slide">
   <p class="eyebrow">Bloco 7 <span class="quem">— Gabriel e Pedro Henrique Barcellos</span></p>
-  <h2>Fechamento</h2>
+  <h2>Fim de jogo</h2>
   <div class="corpo">
     <p class="frase">MathML devolve a matemática à web como
-      <em>conteúdo semântico</em> — não como figura.</p>
-    <ul style="margin-top:1cm">
+      <em>conteúdo semântico</em> — não como figura.<br>
+      Fórmula bem marcada é como classificação em clássico:
+      <em>fica registrada na súmula</em>.</p>
+    <ul style="margin-top:.6cm">
       <li>Uma página, dois arquivos, nenhuma dependência.</li>
       <li>Dedução completa, verificação, exemplo e relações de Girard — tudo em markup.</li>
       <li>Texto de verdade: escalável, selecionável, pesquisável, acessível e imprimível.</li>
     </ul>
   </div>
-  <span class="pe">MathML na prática</span><span class="num">21</span>
+  <span class="pe">MathML na prática · Gre-Nal</span><span class="num">21</span>
 </section>
 
 <!-- 22 ----------------------------------------------------------------- -->
